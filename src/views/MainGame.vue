@@ -103,8 +103,9 @@ export default {
 .myHand button {
   margin-left: 10px;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 24px;
   color: #43746b;
+  background-color: whitesmoke;
   border-style: none;
   outline: none;
 }
