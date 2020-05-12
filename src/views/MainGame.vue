@@ -4,8 +4,8 @@
     <button @click="myScissors" class="hand">Scissors</button>
     <button @click="myPaper" class="hand">Paper</button>
     <div>
-      <button @click="yourHand">push</button>
-      <p>{{ comNumber }}</p>
+      <button @click="randomIndex">push</button>
+      <p>{{ computerHand }}</p>
     </div>
   </div>
 </template>
@@ -14,24 +14,25 @@
 export default {
   data() {
     return {
+      Hands: ['グー', 'チョキ', 'パー'],
       rock: 0,
       scissors: 1,
       paper: 2,
       comNumber: 0,
+      resultNumber: 0
     }
   },
   computed: {
-    
+    computerHand() {
+      return this.Hands[this.comNumber];
+    }
   },
   methods: {
     randomIndex() {
-      return Math.floor(Math.random() * 3);
-    },
-    yourHand() {
-      return this.comNumber = this.randomIndex();
+      return this.comNumber = Math.floor(Math.random() * 3);
     },
     myRock() {
-      console.log('rock');
+      console.log('scissors');
     },
     myScissors() {
       console.log('scissors');
