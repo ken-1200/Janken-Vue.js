@@ -1,8 +1,15 @@
 <template>
   <div id="app">
     <h2>じゃんけんゲーム</h2>
+    <router-view></router-view>
   </div>
 </template>
+
+<script>
+export default {
+  
+}
+</script>
 
 <style>
 #app {
