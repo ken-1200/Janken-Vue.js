@@ -5,9 +5,9 @@
     </div>
     <div class="myHand">
       <button 
-        v-for="item in items" 
+        v-for="(item, index) in items" 
         :key="item.myHands" 
-        @click="handClick(item.myHands)"
+        @click="handClick(item.myHands, index)"
       >
         {{ item.myHands }}
       </button>
@@ -29,9 +29,6 @@ export default {
         { myHands: 'Paper' }
       ],
       comNumber: null,
-      rock: 0,
-      scissors: 1,
-      paper: 2,
       result: ""
     }
   },
@@ -47,9 +44,8 @@ export default {
     randomIndex() {
       return this.comNumber = Math.floor(Math.random() * 3);
     },
-    handClick(key) {
-      if(key === 'Rock') {
-        switch((this.rock - this.randomIndex() + 3) % 3) {
+    handClick(key, index) {
+        switch((index - this.randomIndex() + 3) % 3) {
           case 0:
             this.result = "Draw"
             break;
@@ -60,31 +56,6 @@ export default {
             this.result = "Win"
             break;
         }
-      }else if(key === 'Scissors') {
-        switch((this.scissors - this.randomIndex() + 3) % 3) {
-          case 0:
-            this.result = "Draw"
-            break;
-          case 1:
-            this.result = "Lose"
-            break;
-          case 2:
-            this.result = "Win"
-            break;
-        }
-      }else {
-        switch((this.paper - this.randomIndex() + 3) % 3) {
-          case 0:
-            this.result = "Draw"
-            break;
-          case 1:
-            this.result = "Lose"
-            break;
-          case 2:
-            this.result = "Win"
-            break;
-        }
-      }
     }
   }
 };
