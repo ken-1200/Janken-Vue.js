@@ -5,15 +5,20 @@
     </div>
     <div class="myHand">
       <button 
-        v-for="item in items" 
+        v-for="(item, index) in items" 
         :key="item.myHands" 
-        @click="handClick(item.myHands)"
+        @click="handClick(item.myHands, index)"
       >
         {{ item.myHands }}
       </button>
     </div>
     <div class="result">
       <p>勝敗：{{ resultHand }}</p>
+      <ul>
+        <li>勝ち：{{ resultWinCount }}勝</li>
+        <li>負け：{{ resultLoseCount }}敗</li>
+        <li>あいこ：{{ resultDrawCount }}分け</li>
+      </ul>
     </div>
   </div>
 </template>
@@ -29,10 +34,10 @@ export default {
         { myHands: 'Paper' }
       ],
       comNumber: null,
-      rock: 0,
-      scissors: 1,
-      paper: 2,
-      result: ""
+      result: "",
+      resultWinCount: 0,
+      resultLoseCount: 0,
+      resultDrawCount: 0
     }
   },
   computed: {
@@ -47,43 +52,20 @@ export default {
     randomIndex() {
       return this.comNumber = Math.floor(Math.random() * 3);
     },
-    handClick(key) {
-      if(key === 'Rock') {
-        switch((this.rock - this.randomIndex() + 3) % 3) {
-          case 0:
-            this.result = "Draw"
-            break;
-          case 1:
-            this.result = "Lose"
-            break;
-          case 2:
-            this.result = "Win"
-            break;
-        }
-      }else if(key === 'Scissors') {
-        switch((this.scissors - this.randomIndex() + 3) % 3) {
-          case 0:
-            this.result = "Draw"
-            break;
-          case 1:
-            this.result = "Lose"
-            break;
-          case 2:
-            this.result = "Win"
-            break;
-        }
-      }else {
-        switch((this.paper - this.randomIndex() + 3) % 3) {
-          case 0:
-            this.result = "Draw"
-            break;
-          case 1:
-            this.result = "Lose"
-            break;
-          case 2:
-            this.result = "Win"
-            break;
-        }
+    handClick(key, index) {
+      switch((index - this.randomIndex() + 3) % 3) {
+        case 0:
+          this.result = "Draw"
+          this.resultDrawCount += 1
+          break;
+        case 1:
+          this.result = "Lose"
+          this.resultLoseCount += 1
+          break;
+        case 2:
+          this.result = "Win"
+          this.resultWinCount += 1
+          break;
       }
     }
   }
@@ -111,7 +93,12 @@ export default {
 }
 
 .computer,
-.result{
+.result {
   color: #2c3e50;
+}
+
+ul {
+  padding-left: 0px;
+  list-style: none;
 }
 </style>
