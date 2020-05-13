@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <h2>じゃんけんゲーム</h2>
+    <h4>押してください！！</h4>
     <router-view></router-view>
   </div>
 </template>

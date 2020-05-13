@@ -1,11 +1,19 @@
 <template>
   <div>
-    <button @click="myRock" class="hand">Rock</button>
-    <button @click="myScissors" class="hand">Scissors</button>
-    <button @click="myPaper" class="hand">Paper</button>
-    <div>
-      <button @click="randomIndex">push</button>
-      <p>{{ computerHand }}</p>
+    <div class="computer">
+      <p>相手の手：{{ computerHand }}</p>
+    </div>
+    <div class="myHand">
+      <button 
+        v-for="(item, index) in items" 
+        :key="item.myHands" 
+        @click="handClick(item.myHands, index)"
+      >
+        {{ item.myHands }}
+      </button>
+    </div>
+    <div class="result">
+      <p>勝敗：{{ resultHand }}</p>
     </div>
   </div>
 </template>
@@ -14,34 +22,42 @@
 export default {
   data() {
     return {
-      Hands: ['グー', 'チョキ', 'パー'],
-      rock: 0,
-      scissors: 1,
-      paper: 2,
-      comNumber: 0,
-      resultNumber: 0
+      comHands: ['Rock', 'Scissors', 'Paper'],
+      items: [
+        { myHands: 'Rock' },
+        { myHands: 'Scissors' },
+        { myHands: 'Paper' }
+      ],
+      comNumber: null,
+      result: ""
     }
   },
   computed: {
     computerHand() {
-      return this.Hands[this.comNumber];
+      return this.comHands[this.comNumber];
+    },
+    resultHand() {
+      return this.result;
     }
   },
   methods: {
     randomIndex() {
       return this.comNumber = Math.floor(Math.random() * 3);
     },
-    myRock() {
-      console.log('scissors');
-    },
-    myScissors() {
-      console.log('scissors');
-    },
-    myPaper() {
-      console.log('paper');
+    handClick(key, index) {
+        switch((index - this.randomIndex() + 3) % 3) {
+          case 0:
+            this.result = "Draw"
+            break;
+          case 1:
+            this.result = "Lose"
+            break;
+          case 2:
+            this.result = "Win"
+            break;
+        }
     }
   }
-  // c = (a - b + 3) % 3
 };
 </script>
 
@@ -55,12 +71,18 @@ export default {
   margin-top: 60px;
 }
 
-.hand {
+.myHand button {
   margin-left: 10px;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 24px;
   color: #43746b;
+  background-color: whitesmoke;
   border-style: none;
   outline: none;
+}
+
+.computer,
+.result{
+  color: #2c3e50;
 }
 </style>
